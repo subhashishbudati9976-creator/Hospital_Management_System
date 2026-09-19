@@ -472,56 +472,9 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 .\.venv\Scripts\Activate.ps1
 ```
 
-## 15. GitHub upload using Git
 
-From the project folder:
 
-```bash
-git init
-git add .
-git commit -m "Initial Hospital Appointment Agent"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/hospital-appointment-agent.git
-git push -u origin main
-```
-
-Before `git add .`, verify:
-
-```bash
-git status
-```
-
-Make sure `.env` is not included.
-
-Your GitHub repository should directly contain:
-
-```text
-README.md
-requirements.txt
-app.py
-config.py
-test_openai.py
-test_setup.py
-src/
-data/
-```
-
-Do not create an unnecessary nested structure such as:
-
-```text
-hospital-appointment-agent/hospital-appointment-agent/
-```
-
-## 16. Daily Git workflow after making changes
-
-```bash
-git status
-git add .
-git commit -m "Improve hospital appointment agent"
-git push
-```
-
-## 17. Workshop extension ideas
+## 15. Workshop extension ideas
 
 Once the basic project works, you can extend it with:
 
@@ -535,7 +488,7 @@ Once the basic project works, you can extend it with:
 - LangGraph stateful workflow
 - evaluation and tracing
 
-## 18. Final learning architecture
+## 16. Final learning architecture
 
 ```text
                  HOSPITAL APPOINTMENT AGENT
