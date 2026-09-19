@@ -42,9 +42,8 @@ def book_appointment(
     date: str,
     time: str,
 ) -> str:
-    """Book a demo appointment only after explicit human confirmation."""
+    """Validate a demo appointment request. Streamlit must collect explicit approval before saving."""
     valid_slots = AVAILABLE_SLOTS.get((doctor_name, date), [])
-
     if time not in valid_slots:
         return (
             f"Booking failed: {time} is not available for {doctor_name} "
@@ -57,22 +56,28 @@ def book_appointment(
         and b["date"] == date
         and b["time"] == time
     ]
-
     if existing:
         return "Booking failed: that slot has already been booked."
 
-    print("\n--- HUMAN APPROVAL REQUIRED ---")
-    print(f"Patient   : {patient_name}")
-    print(f"Department: {department}")
-    print(f"Doctor    : {doctor_name}")
-    print(f"Date      : {date}")
-    print(f"Time      : {time}")
-    print("This is a DEMO booking. No real hospital system is connected.")
+    # No terminal input here: Streamlit handles approval in the browser.
+    return (
+        "APPROVAL_REQUIRED | "
+        f"patient_name={patient_name} | department={department} | "
+        f"doctor_name={doctor_name} | date={date} | time={time}. "
+        "This is a simulated booking; ask the user to approve it in the Streamlit UI."
+    )
 
-    approval = input("Type APPROVE to confirm, or anything else to cancel: ").strip()
 
-    if approval.upper() != "APPROVE":
-        return "Booking cancelled by human approval gate."
+def confirm_demo_booking(patient_name: str, department: str, doctor_name: str, date: str, time: str) -> dict:
+    """Save a validated demo booking after the user approves it in the UI."""
+    valid_slots = AVAILABLE_SLOTS.get((doctor_name, date), [])
+    if time not in valid_slots:
+        raise ValueError(f"{time} is not an available slot for {doctor_name} on {date}.")
+    if any(
+        b["doctor_name"] == doctor_name and b["date"] == date and b["time"] == time
+        for b in BOOKINGS
+    ):
+        raise ValueError("That slot has already been booked.")
 
     booking = {
         "booking_id": f"DEMO-{len(BOOKINGS) + 1:04d}",
@@ -83,11 +88,7 @@ def book_appointment(
         "time": time,
     }
     BOOKINGS.append(booking)
-
-    return (
-        "Appointment booked successfully in the demo system. "
-        f"Booking ID: {booking['booking_id']}"
-    )
+    return booking
 
 
 @tool

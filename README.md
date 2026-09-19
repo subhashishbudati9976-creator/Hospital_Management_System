@@ -528,3 +528,5 @@ After completing this project, you should be able to explain and demonstrate:
 - Human-in-the-loop approval
 - Safe separation between an LLM and application side effects
 - Basic Git/GitHub project workflow
+
+\n## Run the Streamlit interface\n\nFrom the project root, activate your virtual environment and install dependencies:\n\n```bash\npip install -r requirements.txt\nstreamlit run streamlit_app.py\n```\n\nThe browser UI includes the LangChain chat assistant, a directory/slot view, a direct demo booking form, and an explicit approve/reject step. The booking tool no longer calls terminal `input()`. All data remains simulated and in-memory; restarting the app clears demo bookings.\n

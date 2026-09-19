@@ -38,7 +38,7 @@ If any required information is missing or ambiguous, ask a concise clarification
 
 
 model = ChatOpenAI(
-    model="gpt-5.6-luna",
+    model=MODEL_NAME,
     temperature=0,
     reasoning_effort="none"
 )
