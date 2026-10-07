@@ -49,7 +49,7 @@ The application combines **LangChain agents, OpenAI models, Python tools, struct
 
 ## 🧠 How the AI Agent Works
 
-The application follows a tool-augmented LLM architecture.
+The application follows a tool-augmented LLM architecture.<br>
 
 ```text
                      ┌──────────────────────┐
@@ -89,29 +89,30 @@ The application follows a tool-augmented LLM architecture.
 
 The LLM determines what the user is asking and uses the available application tools when additional structured information is required.
 ## 🏗️ Project Structure
+
 hospital-appointment-agent/
-│
-├── data/
-│   └── hospital_data.py
-│
-├── src/
-│   ├── __init__.py
-│   ├── agent.py
-│   └── tools.py
-│
-├── screenshots/
-│   └── hospital-appointment-assistant.png
-│
-├── .env
-├── .env.example
-├── .gitignore
-├── app.py
-├── config.py
-├── README.md
-├── requirements.txt
-├── streamlit_app.py
-├── test_openai.py
-└── test_setup.py
+│<br>
+├── data/<br>
+│   └── hospital_data.py<br>
+│<br>
+├── src/<br>
+│   ├── __init__.py<br>
+│   ├── agent.py<br>
+│   └── tools.py<br>
+│<br>
+├── screenshots/<br>
+│   └── hospital-appointment-assistant.png<br>
+│<br>
+├── .env<br>
+├── .env.example<br>
+├── .gitignore<br>
+├── app.py<br>
+├── config.py<br>
+├── README.md<br>
+├── requirements.txt<br>
+├── streamlit_app.py<br>
+├── test_openai.py<br>
+└── test_setup.py<br>
 
 ## 🔧 Core Components
 src/agent.py
@@ -149,22 +150,23 @@ The UI includes:
 - Demo appointment workflow
 ## 🖥️ Streamlit Interface
 The application provides a simple interface around the LangChain agent.
-The sidebar exposes the available hospital information while the main interface allows the user to interact with the AI assistant.
-┌────────────────────────────────────────────────────┐
-│           🏥 Hospital Appointment Assistant        │
-├───────────────────┬────────────────────────────────┤
-│ Hospital Directory│                                │
-│                   │     AI Assistant               │
-│ Departments       │                                │
-│ • Cardiology      │  User: Find a cardiologist    │
-│ • Neurology       │                                │
-│ • Orthopedics     │  AI: Here are the available   │
-│                   │      doctors and slots...      │
-│ Doctors           │                                │
-│ • Doctor 1        │                                │
-│ • Doctor 2        │                                │
-│                   │                                │
-└───────────────────┴────────────────────────────────┘
+The sidebar exposes the available hospital information while the main interface allows the user to interact with the AI assistant.<br>
+
+┌────────────────────────────────────────────────────┐<br>
+│           🏥 Hospital Appointment Assistant        │<br>
+├───────────────────┬────────────────────────────────┤<br>
+│ Hospital Directory│                                │<br>
+│                   │     AI Assistant               │<br>
+│ Departments       │                                │<br>
+│ • Cardiology      │  User: Find a cardiologist     │<br>
+│ • Neurology       │                                │<br>
+│ • Orthopedics     │  AI: Here are the available    │<br>
+│                   │      doctors and slots...      │<br>
+│ Doctors           │                                │<br>
+│ • Doctor 1        │                                │<br>
+│ • Doctor 2        │                                │<br>
+│                   │                                │<br>
+└───────────────────┴────────────────────────────────┘<br>
 
 ## 🛠️ Tech Stack
 Layer	Technology
@@ -251,6 +253,7 @@ streamlit run streamlit_app.py
 The application will open in the browser at the local Streamlit address.
 🧩 Agent Architecture
 The project demonstrates an important LLM application pattern:
+```text
               ┌──────────────┐
               │     User     │
               └──────┬───────┘
@@ -277,7 +280,7 @@ The project demonstrates an important LLM application pattern:
                               │
                               ▼
                        Hospital Data
-
+```
 This architecture demonstrates how an LLM can act as the reasoning layer while deterministic application functions handle structured operations.
 🧪 Testing
 The repository contains setup and OpenAI connectivity checks:
