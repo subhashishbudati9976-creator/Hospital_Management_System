@@ -1,532 +1,310 @@
-# Hospital Appointment Agent — LangChain + OpenAI + Agentic AI
+# 🏥 Hospital Appointment Assistant — LangChain + OpenAI
 
-This Python project that demonstrates how to build a **multi-tool Agentic AI application with LangChain and the OpenAI API**.
+> **AI-powered hospital appointment assistant built as a LangChain + OpenAI + Streamlit classroom/workshop project.**
 
-> **Safety / scope:** This project uses simulated hospital data only. It is an educational demonstration of appointment workflows, tool calling, multi-tool agents, and human approval. It is **not** connected to a real hospital and must not be used for diagnosis, treatment, medication, emergency triage, or real patient care.
+The **Hospital Appointment Assistant** is an AI-powered conversational application that helps users explore hospital departments, doctors, available appointment slots, and confirm appointments through a structured agent workflow.
 
-## you will learn
+The project was developed as part of a **LangChain / OpenAI workshop**, with a focus on understanding how LLMs can interact with application tools and structured data instead of simply generating text.
 
-```text
-Python
-  ↓
-OpenAI API
-  ↓
-LangChain ChatOpenAI
-  ↓
-LangChain Tools
-  ↓
-Multi-Tool Agent
-  ↓
-Human Approval
-  ↓
-Agentic AI Workflow
-```
+---
 
-The agent can:
+## 📸 Application Preview
 
-- list departments
-- find doctors by department
-- check demo appointment slots
-- request a booking
-- pause for human approval before booking
-- cancel demo appointments
+<p align="center">
+  <img src="./screenshots/hospital-appointment-assistant.png" alt="Hospital Appointment Assistant" width="95%">
+</p>
 
-## Project architecture
+---
 
-```text
-                         USER
-                           ↓
-                    NATURAL LANGUAGE
-                           ↓
-                 LANGCHAIN AGENT
-                           ↓
-          ┌────────────────┼────────────────┐
-          ↓                ↓                ↓
-   Department Tool    Doctor Tool      Slot Tool
-          ↓                ↓                ↓
-          └────────────────┼────────────────┘
-                           ↓
-                    Booking Tool
-                           ↓
-                  HUMAN APPROVAL
-                     ↙           ↘
-                 APPROVE       CANCEL
-                    ↓              ↓
-               Book Demo      No Booking
-```
+## 🎯 Project Overview
 
-## 1. Prerequisites
+The goal of this project was to build a practical AI assistant capable of handling a hospital appointment workflow through natural language.
 
-Install **Python 3.10 or newer**.
+Instead of requiring the user to manually navigate through multiple menus, the assistant can understand requests such as:
 
-Check your Python version:
+- Finding available hospital departments
+- Finding doctors by department
+- Checking available appointment slots
+- Understanding appointment-related questions
+- Confirming a demo appointment through an application tool
 
-### Windows
+The application combines **LangChain agents, OpenAI models, Python tools, structured data, and Streamlit** into a single interactive workflow.
 
-```powershell
-py --version
-```
+---
 
-or:
+## ✨ Features
 
-```powershell
-python --version
-```
+- 🤖 **AI Conversational Assistant**
+- 🏥 **Hospital Department Directory**
+- 👨‍⚕️ **Doctor Information**
+- 📅 **Appointment Slot Discovery**
+- ✅ **Appointment Confirmation Workflow**
+- 🔧 **Tool-based Agent Execution**
+- 💬 **Natural Language Interaction**
+- 🖥️ **Streamlit Web Interface**
+- 📦 **Structured Demo Data**
+- 🔐 **Environment-based API Configuration**
 
-### Linux / macOS
+---
 
-```bash
-python3 --version
-```
+## 🧠 How the AI Agent Works
 
-Install Git if you plan to push this project to GitHub.
-
-## 2. Get an OpenAI API key
-
-Create an API key from the OpenAI Platform:
-
-- https://platform.openai.com/
-- OpenAI API documentation: https://developers.openai.com/api/docs/quickstart
-
-LangChain's current OpenAI integration uses the `langchain-openai` package and the `OPENAI_API_KEY` environment variable. See:
-
-- https://docs.langchain.com/oss/python/integrations/chat/openai
-
-**Never commit your real API key to GitHub.**
-
-## 3. Clone or download the project
-
-If you already have the ZIP, extract it and open a terminal in the project folder.
-
-Expected structure:
+The application follows a tool-augmented LLM architecture.
 
 ```text
+                     ┌──────────────────────┐
+                     │        User          │
+                     │ "I need a doctor     │
+                     │  for cardiology"     │
+                     └──────────┬───────────┘
+                                │
+                                ▼
+                     ┌──────────────────────┐
+                     │   Streamlit UI       │
+                     └──────────┬───────────┘
+                                │
+                                ▼
+                     ┌──────────────────────┐
+                     │   LangChain Agent    │
+                     │                      │
+                     │ Understand Request   │
+                     │ Decide Required Tool │
+                     └──────────┬───────────┘
+                                │
+              ┌─────────────────┼─────────────────┐
+              │                 │                 │
+              ▼                 ▼                 ▼
+       ┌────────────┐    ┌────────────┐    ┌────────────┐
+       │ Departments│    │  Doctors   │    │ Appointment│
+       │    Data    │    │    Data    │    │    Tools   │
+       └────────────┘    └────────────┘    └────────────┘
+                                │
+                                ▼
+                     ┌──────────────────────┐
+                     │     Agent Response   │
+                     │ Natural-language     │
+                     │ appointment guidance │
+                     └──────────────────────┘
+```
+
+The LLM determines what the user is asking and uses the available application tools when additional structured information is required.
+## 🏗️ Project Structure
 hospital-appointment-agent/
-│
-├── README.md
-├── requirements.txt
-├── app.py
-├── config.py
-├── test_openai.py
-├── test_setup.py
-├── .env.example
-├── .gitignore
 │
 ├── data/
 │   └── hospital_data.py
 │
-└── src/
-    ├── __init__.py
-    ├── agent.py
-    └── tools.py
-```
+├── src/
+│   ├── __init__.py
+│   ├── agent.py
+│   └── tools.py
+│
+├── screenshots/
+│   └── hospital-appointment-assistant.png
+│
+├── .env
+├── .env.example
+├── .gitignore
+├── app.py
+├── config.py
+├── README.md
+├── requirements.txt
+├── streamlit_app.py
+├── test_openai.py
+└── test_setup.py
 
-## 4. Create a virtual environment
+## 🔧 Core Components
+src/agent.py
+Contains the main LangChain agent logic responsible for:
+- Connecting the LLM
+- Understanding user requests
+- Selecting appropriate tools
+- Executing tool calls
+- Returning the final response
+src/tools.py
+Contains the application tools used by the agent.
+The tools provide the agent with access to structured hospital functionality such as:
+- Department lookup
+- Doctor lookup
+- Appointment slot lookup
+- Appointment confirmation
+This allows the LLM to interact with application logic instead of relying only on generated knowledge.
+data/hospital_data.py
+Contains the simulated hospital data used by the application.
+The dataset includes information such as:
+- Departments
+- Doctors
+- Doctor specialties
+- Experience
+- Available appointment slots
+- Demo bookings
+streamlit_app.py
+Provides the interactive Streamlit interface.
+The UI includes:
+- Hospital directory
+- Department information
+- Doctor information
+- Appointment assistant
+- Conversational interaction
+- Demo appointment workflow
+## 🖥️ Streamlit Interface
+The application provides a simple interface around the LangChain agent.
+The sidebar exposes the available hospital information while the main interface allows the user to interact with the AI assistant.
+┌────────────────────────────────────────────────────┐
+│           🏥 Hospital Appointment Assistant        │
+├───────────────────┬────────────────────────────────┤
+│ Hospital Directory│                                │
+│                   │     AI Assistant               │
+│ Departments       │                                │
+│ • Cardiology      │  User: Find a cardiologist    │
+│ • Neurology       │                                │
+│ • Orthopedics     │  AI: Here are the available   │
+│                   │      doctors and slots...      │
+│ Doctors           │                                │
+│ • Doctor 1        │                                │
+│ • Doctor 2        │                                │
+│                   │                                │
+└───────────────────┴────────────────────────────────┘
 
-### Windows PowerShell
+## 🛠️ Tech Stack
+Layer	Technology
+Language	Python
+LLM Framework	LangChain
+AI Model	OpenAI
+Frontend / UI	Streamlit
+Data	Python structured data
+Environment Management	.env
+Package Management	pip
+Version Control	Git / GitHub
 
-```powershell
-py -m venv .venv
-.\.venv\Scripts\Activate.ps1
-```
 
-If PowerShell blocks activation:
+## 🔄 Appointment Workflow
+A typical appointment interaction follows this flow:
+User Request
+     │
+     ▼
+Understand Intent
+     │
+     ▼
+Identify Department / Doctor
+     │
+     ▼
+Check Available Slots
+     │
+     ▼
+Present Options
+     │
+     ▼
+User Selects Slot
+     │
+     ▼
+Confirmation Tool
+     │
+     ▼
+Appointment Confirmed
 
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-.\.venv\Scripts\Activate.ps1
-```
+## 🧪 Example Interaction
+User
+I want to book an appointment with a cardiologist.
 
-### Windows CMD
+Agent
+I can help with that.
 
-```cmd
-py -m venv .venv
+Here are the available cardiology doctors
+and their appointment slots.
+
+Which doctor and slot would you like to choose?
+
+The agent can then use the appointment tool to process the selected demo booking.
+🔌 Environment Variables
+Create a .env file in the project root:
+OPENAI_API_KEY=your_openai_api_key
+
+⚠️ Never commit your .env file or API keys to GitHub.
+
+The project includes .env.example to document the required configuration without exposing credentials.
+## 🚀 Running Locally
+1. Clone the repository
+git clone <your-repository-url>
+cd hospital-appointment-agent
+
+2. Create a virtual environment
+python -m venv .venv
+
+3. Activate the environment
+Windows:
 .venv\Scripts\activate
-```
 
-### Linux / macOS
-
-```bash
-python3 -m venv .venv
+Linux / macOS:
 source .venv/bin/activate
-```
 
-After activation, you should see something like:
-
-```text
-(.venv)
-```
-
-## 5. Install dependencies
-
-Upgrade pip:
-
-```bash
-python -m pip install --upgrade pip
-```
-
-Install the project requirements:
-
-```bash
+4. Install dependencies
 pip install -r requirements.txt
-```
 
-The main packages are:
-
-```text
-langchain
-langgraph
-langchain-openai
-openai
-python-dotenv
-```
-
-## 6. Create your `.env` file
-
-Copy `.env.example` to `.env`.
-
-### Windows PowerShell
-
-```powershell
-Copy-Item .env.example .env
-```
-
-### Windows CMD
-
-```cmd
-copy .env.example .env
-```
-
-### Linux / macOS
-
-```bash
-cp .env.example .env
-```
-
-Open `.env` and add your API key:
-
-```text
-OPENAI_API_KEY=YOUR_OPENAI_API_KEY
-MODEL_NAME=gpt-5.6-luna
-```
-
-`MODEL_NAME` is configurable. Use a model that is available to your OpenAI API project. OpenAI's current model catalog is here:
-
-https://platform.openai.com/docs/models
-
-If `gpt-5.6-luna` is not available to your project, replace it with a currently available model.
-
-## 7. Important security check
-
-Your real `.env` file should **not** be uploaded to GitHub.
-
-The `.gitignore` file already includes:
-
-```text
-.env
-.venv/
-__pycache__/
-*.pyc
-```
-
-Check before committing:
-
-```bash
-git status
-```
-
-You should **not** see `.env` listed as a file to commit.
-
-## 8. Test the OpenAI API
-
-Run:
-
-```bash
-python test_openai.py
-```
-
-Expected output:
-
-```text
-OpenAI API connection successful.
-```
-
-If this fails, check:
-
-1. `.env` exists.
-2. `OPENAI_API_KEY` is correct.
-3. The key belongs to an API project with API access/credits.
-4. `MODEL_NAME` is valid for your project.
-5. Your internet connection is working.
-
-## 9. Test the LangChain agent setup
-
-Run:
-
-```bash
-python test_setup.py
-```
-
-Expected output:
-
-```text
-API key configured: True
-Model: gpt-5.6-luna
-Agent created: True
-Setup test passed.
-```
-
-The displayed model will match your `.env` value.
-
-## 10. Run the complete project
-
-Run:
-
-```bash
-python app.py
-```
-
-You should see:
-
-```text
-======================================================================
-HOSPITAL APPOINTMENT AGENT - LANGCHAIN + OPENAI + AGENTIC AI
-CLASSROOM DEMO: ALL HOSPITAL DATA IS SIMULATED
-======================================================================
-```
-
-The application then waits for natural-language requests.
-
-## 11. Hands-on exercises
-
-### Exercise 1 — List departments
-
-```text
-List the hospital departments.
-```
-
-The agent should use:
-
-```text
-list_departments()
-```
-
-### Exercise 2 — Find a doctor
-
-```text
-Find a dermatologist.
-```
-
-The agent should use:
-
-```text
-find_doctors()
-```
-
-### Exercise 3 — Check available slots
-
-```text
-What slots are available with Dr. Ananya Rao on 2026-10-15?
-```
-
-The agent should use:
-
-```text
-check_available_slots()
-```
-
-### Exercise 4 — Multi-tool request
-
-```text
-Find a dermatologist and tell me the available slots for Dr. Ananya Rao on 2026-10-15.
-```
-
-you should observe that the agent can use more than one tool to complete the request.
-
-### Exercise 5 — Booking with human approval
-
-```text
-Book a dermatology appointment for Venky Naidu on 2026-10-15 at 11:00 with Dr. Ananya Rao.
-```
-
-The booking tool will pause and display:
-
-```text
---- HUMAN APPROVAL REQUIRED ---
-Patient   : Venky Naidu
-Department: Dermatology
-Doctor    : Dr. Ananya Rao
-Date      : 2026-10-15
-Time      : 11:00
-
-This is a DEMO booking. No real hospital system is connected.
-
-Type APPROVE to confirm, or anything else to cancel:
-```
-
-Type:
-
-```text
-APPROVE
-```
-
-Only after approval is the simulated appointment recorded.
-
-### Exercise 6 — Cancel a booking
-
-After a successful booking, use the returned demo booking ID, for example:
-
-```text
-Cancel appointment DEMO-0001.
-```
-
-The agent should call:
-
-```text
-cancel_appointment()
-```
-
-## 12. Understanding the Agent
-
-The user gives a goal in natural language. The model decides which available tool(s) are appropriate, the tools return observations, and the agent continues until it can answer or reaches a stop condition.
-
-In this project:
-
-```text
-User Goal
-   ↓
-Agent
-   ↓
-Choose Tool
-   ↓
-Execute Tool
-   ↓
-Observe Result
-   ↓
-Choose Next Tool (if needed)
-   ↓
-Final Answer
-```
-
-LangChain's current agent API uses `create_agent`, and its OpenAI integration supports tool calling. See:
-
-- https://docs.langchain.com/oss/python/langchain/agents
-- https://docs.langchain.com/oss/python/integrations/chat/openai
-
-## 13. Why the booking tool has human approval
-
-A booking changes application state. In an educational production-design discussion, this is a good example of a **side-effecting action** that can require explicit confirmation.
-
-```text
-Agent
-  ↓
-Propose Booking
-  ↓
-Human Approval
-  ↓
-Execute Booking
-```
-
-The demo therefore does not allow the LLM to silently complete a booking.
-
-## 14. Troubleshooting
-
-### Error: `OPENAI_API_KEY is missing`
-
-Check that `.env` exists in the project root and contains:
-
-```text
-OPENAI_API_KEY=...
-```
-
-Then run the test again.
-
-### Error: model not found / model not available
-
-Change:
-
-```text
-MODEL_NAME=...
-```
-
-to a model available to your OpenAI API project. Check the current model catalog:
-
-https://platform.openai.com/docs/models
-
-### Error: authentication / quota / billing
-
-Verify your OpenAI API project has API access and available usage/credits. ChatGPT subscriptions and API billing are separate products.
-
-### Error: `No module named ...`
-
-Activate the virtual environment again and run:
-
-```bash
-pip install -r requirements.txt
-```
-
-### PowerShell activation error
-
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-.\.venv\Scripts\Activate.ps1
-```
-
-
-
-## 15. Workshop extension ideas
-
-Once the basic project works, you can extend it with:
-
-- RAG over hospital policy PDFs
-- doctor/department database instead of Python lists
-- SQLite or PostgreSQL
-- separate approval workflow
-- appointment history
-- email confirmation tool
-- calendar integration
-- LangGraph stateful workflow
-- evaluation and tracing
-
-## 16. Final learning architecture
-
-```text
-                 HOSPITAL APPOINTMENT AGENT
-                            │
-                            ▼
-                         OPENAI
-                            │
-                            ▼
-                        LANGCHAIN
-                            │
-                            ▼
-                          AGENT
-                            │
-            ┌───────────────┼────────────────┐
-            ↓               ↓                ↓
-       Departments       Doctors           Slots
-            Tool            Tool             Tool
-            └───────────────┼────────────────┘
-                            ↓
-                       Booking Tool
-                            ↓
-                      HUMAN APPROVAL
-                            ↓
-                    DEMO APPOINTMENT
-```
-
-## Learning outcome
-
-After completing this project, you should be able to explain and demonstrate:
-
-- OpenAI API integration
-- LangChain `ChatOpenAI`
-- LangChain tools
+5. Configure environment variables
+Create .env:
+OPENAI_API_KEY=your_openai_api_key
+
+6. Run Streamlit
+streamlit run streamlit_app.py
+
+The application will open in the browser at the local Streamlit address.
+🧩 Agent Architecture
+The project demonstrates an important LLM application pattern:
+              ┌──────────────┐
+              │     User     │
+              └──────┬───────┘
+                     │
+                     ▼
+              ┌──────────────┐
+              │   Streamlit  │
+              │      UI      │
+              └──────┬───────┘
+                     │
+                     ▼
+              ┌──────────────┐
+              │  LangChain   │
+              │    Agent     │
+              └──────┬───────┘
+                     │
+            ┌────────┴────────┐
+            │                 │
+            ▼                 ▼
+     ┌─────────────┐   ┌─────────────┐
+     │ OpenAI LLM  │   │ Application │
+     │             │   │   Tools     │
+     └─────────────┘   └──────┬──────┘
+                              │
+                              ▼
+                       Hospital Data
+
+This architecture demonstrates how an LLM can act as the reasoning layer while deterministic application functions handle structured operations.
+🧪 Testing
+The repository contains setup and OpenAI connectivity checks:
+test_setup.py
+test_openai.py
+
+These files are used to verify the local environment and AI integration before running the complete Streamlit application.
+## 📚 What This Project Demonstrates
+This project was built to understand practical concepts behind modern LLM applications, including:
+- Large Language Model integration
+- LangChain agents
 - Tool calling
-- Multi-tool agents
-- Agent execution loops
-- Human-in-the-loop approval
-- Safe separation between an LLM and application side effects
-- Basic Git/GitHub project workflow
-
-\n## Run the Streamlit interface\n\nFrom the project root, activate your virtual environment and install dependencies:\n\n```bash\npip install -r requirements.txt\nstreamlit run streamlit_app.py\n```\n\nThe browser UI includes the LangChain chat assistant, a directory/slot view, a direct demo booking form, and an explicit approve/reject step. The booking tool no longer calls terminal `input()`. All data remains simulated and in-memory; restarting the app clears demo bookings.\n
+- Prompt-driven interaction
+- Structured application data
+- Agent-to-tool workflows
+- Streamlit application development
+- Environment variable management
+- AI application debugging and testing
+## ⚠️ Important Note
+This project uses simulated hospital data for educational and demonstration purposes.
+It is not connected to a real hospital, real appointment system, or real patient database.
+Do not enter real medical or personally identifiable information.
+## 🎓 Workshop Project
+This project was developed as part of a LangChain + OpenAI workshop/classroom project to explore how conversational AI can be connected to real application functionality through tools and agent workflows.
+## 👨‍💻 Author
+Subhashish Budati
+CSE — Next-Gen Computational Intelligence
+JNTUH — University College of Engineering, Science & Technology Hyderabad
+## ⭐ Project Summary
+A practical demonstration of building a tool-using AI assistant with Python, LangChain, OpenAI, and Streamlit, capable of understanding natural-language hospital appointment requests and interacting with structured application tools to complete the workflow.
